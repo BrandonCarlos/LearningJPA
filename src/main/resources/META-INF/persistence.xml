@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Abaixo temos o cabeçalho da configuração do JPA -->
+<persistence version="2.2" 
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+	<persistence-unit name="loja" transaction-type="RESOURCE_LOCAL"><!-- JTA é para quando estou utilizando um servidor de aplicação -->
+	<!-- Como não temos servidor de aplicação, vamos utilizar somente o RESOURCE_LOCAL -->
+	<!-- Aqui dentro que vai todas as configurações da nossa aplicação, se tivessemos 4 banco de dados então seria 1 
+	persistence-unit para cada banco de dados -->
+	<properties>
+	<!-- Com quais propriedades abaixo a JPA já consegue fazer conexão com o banco de dados H2 -->
+		<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"></property><!-- Dizendo qual que é o Driver do banco de dados -->
+		<property name="javax.persistence.jdbc.url" value="h2:mem:loja"></property><!-- Dizendo qual que é a URL do banco de dados -->
+		<property name="javax.persistence.jdbc.username" value="sa"></property><!-- Dizendo qual que é a URL do banco de dados -->
+		<property name="javax.persistence.jdbc.password" value=""></property><!-- Dizendo qual que é a URL do banco de dados -->
+	
+		<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/><!-- hibernate saberá as propriedades do banco de dados, ex: no H2 não existe Booleano, booleano é inteiro 0 ou 1 
+		cada banco de dados pode ter suas particularidades-->
+	
+	</properties>
+	</persistence-unit>
+
+</persistence>
