@@ -4,11 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity // <- falando que Produto é uma entidade lá do banco de dados, mapeando a tabela
@@ -28,9 +27,8 @@ public class Produto {// Esta class representa a "tabela de Produtos", e precisa
 	private String descricao;
 	private BigDecimal preco;
 	private LocalDate dataCadastro = LocalDate.now();// Ao instânciar o produto já vai vir com a data atual
-	//Senão falarmos para cadastrar como VARCHAR irá por default cadastrar no BD como INT
-	@Enumerated(EnumType.STRING)
-	private Categoria categoria;
+	@ManyToOne //Muitos produtos podem ter 1 categoria, então a tabela "Produtos" terá a chave estrangeira Categoria_id
+	private Categoria categoria;//cardinalidade de * para 1
 
 	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
 		this.nome = nome;

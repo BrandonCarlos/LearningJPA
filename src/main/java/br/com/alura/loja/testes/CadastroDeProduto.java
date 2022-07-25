@@ -3,9 +3,8 @@ package br.com.alura.loja.testes;
 import java.math.BigDecimal;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
+import br.com.alura.loja.dao.CategoriaDao;
 import br.com.alura.loja.dao.ProdutoDao;
 import br.com.alura.loja.modelo.Categoria;
 import br.com.alura.loja.modelo.Produto;
@@ -15,12 +14,16 @@ public class CadastroDeProduto {
 
 	public static void main(String[] args) {
 		
-		Produto celular = new Produto("Xiaomi Redmi", "Muito legal", new BigDecimal(800), Categoria.CELULARES);
+		Categoria celulares = new Categoria("CELULARES");
+		Produto celular = new Produto("Xiaomi Redmi", "Muito legal", new BigDecimal(800), celulares);
 		//Criando um entityManager
 		EntityManager em = JPAUtil.getEntityManager();
-		ProdutoDao dao = new ProdutoDao(em);
+		ProdutoDao produtoDao = new ProdutoDao(em);
+		CategoriaDao categoriaDao = new CategoriaDao(em);
 		em.getTransaction().begin(); //para o EntityManager iniciar a transação
-		dao.cadastrar(celular);//persist -> método para persistir, inserir um registro dentro do banco de dados, e será inserido na tabela "Produto"
+		categoriaDao.cadastrar(celulares);//ou seja primeiro vai inserir a categoria no banco de dados, dizemos isso pq o Produto está vinculado com está Categoria
+		//E assim temos a chave estrangeira em nossa tabela produto
+		produtoDao.cadastrar(celular);//persist -> método para persistir, inserir um registro dentro do banco de dados, e será inserido na tabela "Produto"
 		//o entityManager que transformara o objeto produto em um linha lá na tabela do banco de dados
 		em.getTransaction().commit();//para comitar a transação no banco de dados
 		em.close();//terminou de utilizar o entityManager, precisa dar um close(), fechando o banco de dados depois do uso
