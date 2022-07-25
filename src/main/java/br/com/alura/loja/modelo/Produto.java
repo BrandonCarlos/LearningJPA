@@ -1,8 +1,11 @@
 package br.com.alura.loja.modelo;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,12 +18,26 @@ public class Produto {// Esta class representa a "tabela de Produtos", e precisa
 	// e indicamos para a JPA via Annotations
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)//Definindo a strategy que vai gerar a Chave primaria dentro do banco de dados
-	//IDENTITY e para banco de dados que não tem o tipo SEQUENCE, más vai gerar em SEQUENCE aqui
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Definindo a strategy que vai gerar a Chave primaria dentro do
+														// banco de dados
+	// IDENTITY e para banco de dados que não tem o tipo SEQUENCE, más vai gerar em
+	// SEQUENCE aqui
+	//Não precisamos falar p/ JPA mapear estes atributos abaixo, pois já reconhece
 	private Long id;
 	private String nome;
 	private String descricao;
 	private BigDecimal preco;
+	private LocalDate dataCadastro = LocalDate.now();// Ao instânciar o produto já vai vir com a data atual
+	//Senão falarmos para cadastrar como VARCHAR irá por default cadastrar no BD como INT
+	@Enumerated(EnumType.STRING)
+	private Categoria categoria;
+
+	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.categoria = categoria;
+	}
 
 	public Long getId() {
 		return id;
@@ -53,4 +70,21 @@ public class Produto {// Esta class representa a "tabela de Produtos", e precisa
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
+
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 }
