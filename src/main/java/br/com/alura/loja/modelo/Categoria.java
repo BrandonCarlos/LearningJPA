@@ -15,9 +15,9 @@ public class Categoria {// Esta class é uma Entity lá do banco de dados
 	private Long id;// Não precisamos gerar GET e SET do "id" pq é gerado lá no banco de dados
 	private String nome;
 	
-	public Categoria() {
-		//constructor default, para podermos voltar para o estado de MANAGED com o método MERGE()
-	}
+	public Categoria() { 
+		//constructor default, para podermos voltar para o estado de MANAGED com o método MERGE() 
+	} 
 	
 	public Categoria(String nome) {
 		this.nome = nome;
