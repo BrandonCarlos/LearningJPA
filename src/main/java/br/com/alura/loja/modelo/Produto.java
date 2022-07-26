@@ -16,12 +16,12 @@ import javax.persistence.Table;
 public class Produto {// Esta class representa a "tabela de Produtos", e precisamos indicar para a JPA
 	// e indicamos para a JPA via Annotations
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // Definindo a strategy que vai gerar a Chave primaria dentro do
 														// banco de dados
 	// IDENTITY e para banco de dados que não tem o tipo SEQUENCE, más vai gerar em
 	// SEQUENCE aqui
 	//Não precisamos falar p/ JPA mapear estes atributos abaixo, pois já reconhece
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Definindo a strategy que vai gerar a Chave primaria dentro do
 	private Long id;
 	private String nome;
 	private String descricao;
