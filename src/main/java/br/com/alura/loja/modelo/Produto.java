@@ -30,6 +30,10 @@ public class Produto {// Esta class representa a "tabela de Produtos", e precisa
 	@ManyToOne //Muitos produtos podem ter 1 categoria, então a tabela "Produtos" terá a chave estrangeira Categoria_id
 	private Categoria categoria;//cardinalidade de * para 1
 
+	public Produto() {
+		//constructor default para poder voltar ao estado de MANAGED com o método MERGE() que exige este constructor default
+	}
+	
 	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
 		this.nome = nome;
 		this.descricao = descricao;
