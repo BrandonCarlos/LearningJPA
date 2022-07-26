@@ -13,7 +13,7 @@ public class JPAUtil {
 	
 	//método p/ retornar um EntityManager
 	public static EntityManager getEntityManager() {//static pois é um método da class, e chamamos assim:
-		//JPAUtil.getEntityManager();
+		//JPAUtil.getEntityManager();  
 		return FACTORY.createEntityManager();
 	}
 }
