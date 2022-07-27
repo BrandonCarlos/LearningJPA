@@ -19,6 +19,7 @@
 		<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/><!-- hibernate saberá as propriedades do banco de dados, ex: no H2 não existe Booleano, booleano é inteiro 0 ou 1 
 		cada banco de dados pode ter suas particularidades-->
 		<property name="hibernate.show_sql" value="true"></property><!-- Sempre que for no SQL gerá banco de dados, imprime no console p/ mim por favor -->
+		<property name="hibernate.format_sql" value="true"></property><!-- Quando exibir o SQL no console mostrará identado -->
 		<property name="hibernate.hbm2ddl.auto" value="update"></property><!-- na hora de colocar dados na tabela, vai criar a tabela automaticamente, vai add dados na tabela automaticamente, atualizar etc.. -->
 	</properties>
 	</persistence-unit>

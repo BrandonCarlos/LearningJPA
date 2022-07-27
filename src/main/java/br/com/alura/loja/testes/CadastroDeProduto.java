@@ -25,13 +25,20 @@ public class CadastroDeProduto {
 		List<Produto> todosProdutos = produtoDao.buscarTodosProdutos();//retornando uma Lista com todos os Produtos e abaixo vamos percorrer com ForEach
 		todosProdutos.forEach(produto -> System.out.println(produto.getNome()));//percorrendo de dentro de cada Produto e pegando o nome
 		
+		List<Produto> produtosComMesmoNome = produtoDao.BuscarPorNome("Samsung");//se retornou Lista, devemos percorrer com forEach
+		produtosComMesmoNome.forEach(produtoNome -> System.out.println(produtoNome.getNome() + " Legal"));
+		
+		List<Produto> produtosComMesmoNomeCategoria = produtoDao.BuscarPorNomeDaCategoria("CELULARES");
+		produtosComMesmoNomeCategoria.forEach(produtoNome -> System.out.println(produtoNome.getNome()));
+	
 	}
 
 	private static void cadastrarProduto() {
 		Categoria celulares = new Categoria("CELULARES"); 
 		Produto celularOne = new Produto("Xiaomi Redmi", "Muito legal", new BigDecimal(800), celulares); 
 		Produto celularTwo = new Produto("Samsung", "Muito legal", new BigDecimal(1200), celulares); 
-		Produto celularThree = new Produto("Motorola", "Muito legal", new BigDecimal(1100), celulares); 
+		Produto celularThree = new Produto("Samsung", "Muito legal", new BigDecimal(1200), celulares); 
+		Produto celularFour = new Produto("Motorola", "Muito legal", new BigDecimal(1100), celulares); 
 		
 		//EntityManager que consegue cadastrar dados dentro do Banco de dados 
 		EntityManager em = JPAUtil.getEntityManager();//utilizamos nossa fábria de EntityManager para nós retorna uma EntityManager 
@@ -40,9 +47,10 @@ public class CadastroDeProduto {
 		ProdutoDao produtoDao = new ProdutoDao(em);
 		em.getTransaction().begin(); 
 		categoriaDao.cadastrarNoBancoDeDados(celulares);
-		produtoDao.cadastrarNoBancoDeDados(celularOne);//aqui já foi inserido no BD 
+		produtoDao.cadastrarNoBancoDeDados(celularOne);//aqui j++á foi inserido no BD 
 		produtoDao.cadastrarNoBancoDeDados(celularTwo);//aqui já foi inserido no BD 
 		produtoDao.cadastrarNoBancoDeDados(celularThree);//aqui já foi inserido no BD 
+		produtoDao.cadastrarNoBancoDeDados(celularFour);//aqui já foi inserido no BD 
 		celulares.setNome("SAMSUNG");//JPA vigiando que eu mudei algo na entidade Categoria e fará o UPDATE 
 		em.flush();//Praticamente o mesmo que o commit, sincronizara com o banco de dados 
 		em.clear();//Aqui joga a entidade para o estado DETACHED que no caso a JPA não vigia mais as atualizações que eu fizer 

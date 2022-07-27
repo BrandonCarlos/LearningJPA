@@ -34,5 +34,19 @@ public class ProdutoDao {
 		String jpql = "SELECT p FROM Produto p"; //é o mesmo que fazer SELECT * FROM PRODUTO, Produto <- entity, e o "p" e como se fosse o ALIAS
 		return this.em.createQuery(jpql, Produto.class).getResultList();//Produto.class -> falando que realmente o retorno e do tipo List de Produto
 	}
+	
+	public List<Produto> BuscarPorNome(String nome) {
+		String jpql = "SELECT p FROM Produto p WHERE p.nome = :nome";//:nome <- indicando que é um parâmetro dinâmico
+		return em.createQuery(jpql, Produto.class)//retornando a QUERY 
+				.setParameter("nome", nome)//setando parâmetro dizendo para substituir o ":nome" pelo parâmetro "nome"
+				.getResultList();//pedindo para retornar a Lista
+	}
+	
+	public List<Produto> BuscarPorNomeDaCategoria(String nome) {//a tabela Produto se relaciona com a tabela Categoria, portanto podemos fazer consultar na Tabela Categoria
+		String jpql = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome";//p.categoria.nome já fará o JOIN automáticamente pq aqui estamos usando JPQL que é OO
+		return em.createQuery(jpql, Produto.class)
+				.setParameter("nome", nome)
+				.getResultList();
+	}
 
 }
