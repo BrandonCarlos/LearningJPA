@@ -1,10 +1,10 @@
 package br.com.alura.loja.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import br.com.alura.loja.modelo.Categoria;
 import br.com.alura.loja.modelo.Produto;
 
 public class ProdutoDao {
@@ -47,6 +47,14 @@ public class ProdutoDao {
 		return em.createQuery(jpql, Produto.class)
 				.setParameter("nome", nome)
 				.getResultList();
+	}
+	
+	//Buscar atráves do nome porém quero que seja retornado somente o preço
+	public BigDecimal BuscarPrecoDoProdutoComNome(String nome) {
+		String jpql = "SELECT p.preco FROM Produto p WHERE p.nome = :nome";//:nome <- indicando que é um parâmetro dinâmico
+		return em.createQuery(jpql, BigDecimal.class)//Agora retorna um registro do tipo BigDecimal.class
+				.setParameter("nome", nome)//setando parâmetro dizendo para substituir o ":nome" pelo parâmetro "nome"
+				.getSingleResult();//pedindo para retornar a Lista
 	}
 
 }
